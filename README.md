@@ -4,4 +4,6 @@ Python script to enumerate valid Microsoft 365 domains, retrieve tenant name, an
 
 Based on: https://github.com/thalpius/Microsoft-Defender-for-Identity-Check-Instance.
 
-Usage: ./check_defender.py -d <domain>
+# Usage
+
+```./check_defender.py -d <domain>```
