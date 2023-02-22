@@ -3,7 +3,7 @@
 """
 Python script to enumerate valid Microsoft 365 domains, retrieve tenant name, and check for an MDI instance.
 Based on: https://github.com/thalpius/Microsoft-Defender-for-Identity-Check-Instance.
-Usage: ./main.py -d <domain>
+Usage: ./check_mdi.py -d <domain>
 """
 
 import argparse
