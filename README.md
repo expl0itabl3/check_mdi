@@ -6,4 +6,4 @@ Based on: https://github.com/thalpius/Microsoft-Defender-for-Identity-Check-Inst
 
 # Usage
 
-```./main.py -d <domain>```
+```./check_mdi.py -d <domain>```
