@@ -50,10 +50,14 @@ def get_domains(args):
         "User-agent": "AutodiscoverClient"
     }
 
+    url = "https://autodiscover-s.outlook.com/autodiscover/autodiscover.svc"
+    if args.gov: 
+        url = "https://autodiscover-s.office365.us/autodiscover/autodiscover.svc"
+
     # Perform HTTP request
     try:
         httprequest = Request(
-            "https://autodiscover-s.outlook.com/autodiscover/autodiscover.svc", headers=headers, data=body.encode())
+            url, headers=headers, data=body.encode())
 
         with urlopen(httprequest) as response:
             response = response.read().decode()
@@ -129,5 +133,7 @@ if __name__ == "__main__":
         "-d", "--domain", help="input domain name, example format: example.com", required=True)
     parser.add_argument(
         "-j", "--json", action="store_true", help="output in JSON format", required=False)
+    parser.add_argument(
+        "--gov", action="store_true", help="query government tenancy", required=False)
     args = parser.parse_args()
     get_domains(args)

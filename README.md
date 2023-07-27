@@ -12,3 +12,7 @@ Standard Usage
 
 JSON Output
 ```./check_mdi.py -d <domain> -j```
+
+
+Query government tenants
+```./check_mdi.py -d <domain> --gov```
