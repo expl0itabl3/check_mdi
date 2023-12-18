@@ -48,24 +48,29 @@ def get_domains(args):
         "User-agent": "AutodiscoverClient"
     }
 
-    # Perform HTTP request
-    try:
-        httprequest = Request(
-            "https://autodiscover-s.outlook.com/autodiscover/autodiscover.svc", headers=headers, data=body.encode())
-
-        with urlopen(httprequest) as response:
-            response = response.read().decode()
-    except Exception:
-        print("[-] Unable to execute request. Wrong domain?")
-        exit()
-
-    # Parse XML response
+    # Interrogate all the exchange endpoints as outlined in the table section on this page
+    # https://learn.microsoft.com/en-us/microsoft-365/enterprise/microsoft-365-endpoints?view=o365-worldwide
+    exchanges = ["autodiscover-s.outlook.com", "autodiscover-s.office365.us", "outlook-dod.office365.us", "partner.outlook.cn"]
     domains = []
+    for exchange in exchanges:
+        # Perform HTTP request
+        try:
+            httprequest = Request(
+                "https://{}/autodiscover/autodiscover.svc".format(exchange), headers=headers, data=body.encode())
 
-    tree = ET.fromstring(response)
-    for elem in tree.iter():
-        if elem.tag == "{http://schemas.microsoft.com/exchange/2010/Autodiscover}Domain":
-            domains.append(elem.text)
+            with urlopen(httprequest) as response:
+                response = response.read().decode()
+        except Exception as e:
+            print("[-] Request failed for exchange {} Skipping ...".format(exchange))
+            continue
+
+        # Parse XML response
+        
+
+        tree = ET.fromstring(response)
+        for elem in tree.iter():
+            if elem.tag == "{http://schemas.microsoft.com/exchange/2010/Autodiscover}Domain":
+                domains.append(elem.text)
 
     print("\n[+] Domains found:")
     print(*domains, sep="\n")
