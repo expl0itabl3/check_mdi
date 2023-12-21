@@ -53,6 +53,8 @@ def get_domains(args):
     url = "https://autodiscover-s.outlook.com/autodiscover/autodiscover.svc"
     if args.gov: 
         url = "https://autodiscover-s.office365.us/autodiscover/autodiscover.svc"
+    elif args.cn:
+        url = "https://autodiscover-s.partner.outlook.cn/autodiscover/autodiscover.svc"
 
     # Perform HTTP request
     try:
@@ -67,7 +69,7 @@ def get_domains(args):
         else:
             print("[-] Unable to execute request. Wrong domain?")
         exit()
-
+    #print(response)
     # Parse XML response
     domains = []
 
@@ -135,5 +137,7 @@ if __name__ == "__main__":
         "-j", "--json", action="store_true", help="output in JSON format", required=False)
     parser.add_argument(
         "--gov", action="store_true", help="query government tenancy", required=False)
+    parser.add_argument(
+        "--cn", action="store_true", help="query chinese tenancy", required=False)
     args = parser.parse_args()
     get_domains(args)
