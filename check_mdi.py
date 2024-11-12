@@ -86,7 +86,7 @@ def get_domains(args):
 # Identify MDI usage
 def check_mdi(tenant):
 
-    tenant += ".atp.azure.com"
+    tenant += "sensorapi.atp.azure.com"
 
     # Check if MDI instance exists
     try:
